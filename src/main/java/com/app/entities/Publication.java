@@ -20,6 +20,14 @@ public class Publication {
         return id;
     }
 
+    public Publication() {
+    }
+
+    public Publication(String headline, String content) {
+        this.headline = headline;
+        this.content = content;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

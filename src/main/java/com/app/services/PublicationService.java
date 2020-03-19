@@ -2,8 +2,9 @@ package com.app.services;
 import com.app.entities.Publication;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
-
-public interface PublicationService extends CrudRepository<Publication, Integer> {}
+public interface PublicationService extends CrudRepository<Publication, Integer> {
+    Publication getById(Integer id);
+    List <Publication> findAllBy();
+}
