@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserService extends CrudRepository <User, Integer> {
 
     User getById (Integer id);
+    User getByName (String name);
 }
