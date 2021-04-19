@@ -1,0 +1,7 @@
+com\app\entities\Publication.class
+com\app\controllers\PublicationsController.class
+com\app\WebSecurityConfig.class
+com\App.class
+com\app\services\PublicationService.class
+com\app\controllers\dtos\PublicationDTO.class
+com\app\controllers\LoginController.class
