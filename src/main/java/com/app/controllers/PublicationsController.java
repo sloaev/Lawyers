@@ -1,6 +1,6 @@
 package com.app.controllers;
 
-import com.app.controllers.dtos.PublicationDTO;
+import com.app.DTO.PublicationDTO;
 import com.app.entities.Publication;
 import com.app.services.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;

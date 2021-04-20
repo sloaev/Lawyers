@@ -9,7 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 
 @Configuration
 @EnableWebSecurity
@@ -19,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(  "/getPubs","/").permitAll()
+                .antMatchers("/getPubs", "/").permitAll()
                 .mvcMatchers("/assets/**").permitAll()
                 .antMatchers("/pubs/**").authenticated()
                 .antMatchers("/def/**").authenticated()
@@ -34,17 +37,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
+
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
-        // There will be only one user, so there is no need to create db entity/java class
-        // Username and password will be stored in property file
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
+        /*
+        There will be only one user, so there is no need to create db entity/java class
+        Username and password will be stored in property file
+         */
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        UserDetails user = User.builder()
+                .username("user")
+                .password(passwordEncoder.encode("password"))
+                .roles("ADMIN")
+                .build();
 
         return new InMemoryUserDetailsManager(user);
     }

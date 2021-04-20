@@ -1,4 +1,4 @@
-package com.app.controllers.dtos;
+package com.app.DTO;
 
 /**
  * DTO for transferring publications
