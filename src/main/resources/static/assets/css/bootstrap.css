@@ -5992,11 +5992,12 @@ button.close {
 .tooltip {
   position: absolute;
   width: 800px;
+  max-width: 100%;
   z-index: 1;
   display: block;
   /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-family: 'Raleway', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: normal;
   line-height: 1.6;
@@ -6036,7 +6037,6 @@ button.close {
   margin-left: -3px;
 }
 .tooltip-inner {
-  max-width: 800px;
   padding: 15px;
   color: midnightblue;
   text-align: start;

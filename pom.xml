@@ -13,7 +13,7 @@
 
 
     <groupId>com.advis</groupId>
-    <artifactId>AdVisBack</artifactId>
+    <artifactId>Uniforum</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -82,6 +82,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>${artifactId}</finalName>
     </build>
+
+    <packaging>war</packaging>
 
 </project>
