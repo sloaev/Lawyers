@@ -5,6 +5,7 @@ import com.app.entities.Publication;
 import com.app.services.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -43,25 +44,31 @@ public class PublicationsController {
 
         Path destinationFile = Paths.get("/imageDir");
 
-        publicationService.findAllBy().forEach(publication -> {
-            PublicationDTO dto = new PublicationDTO(publication.getId(), publication.getContent(), publication.getHeadline()); // creating publication dto instance, setting values from db model
-            if (publication.getDate() != null){
-                dto.setDate(new SimpleDateFormat("dd.MM.yyyy").format(publication.getDate())); // setting formatted date if it's existing
-            }
+
+        try {
+            publicationService.findAllBy().forEach(publication -> {
+                PublicationDTO dto = new PublicationDTO(publication.getId(), publication.getContent(), publication.getHeadline()); // creating publication dto instance, setting values from db model
+                if (publication.getDate() != null) {
+                    dto.setDate(new SimpleDateFormat("dd.MM.yyyy").format(publication.getDate())); // setting formatted date if it's existing
+                }
 
             /*
             setting image in publication dto, if image exists in filesystem
              */
 
-            Path filePath = destinationFile.resolve("image" + publication.getId() + ".jpg");
-            try {
-                byte[] fileContent = Files.readAllBytes(filePath);
-                dto.setImage("data:image/jpeg;base64," + Base64.getEncoder().encodeToString(fileContent));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            list.add(dto); // adding dto to list
-        });
+                Path filePath = destinationFile.resolve("image" + publication.getId() + ".jpg");
+                try {
+                    byte[] fileContent = Files.readAllBytes(filePath);
+                    dto.setImage("data:image/jpeg;base64," + Base64.getEncoder().encodeToString(fileContent));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                list.add(dto); // adding dto to list
+            });
+        }
+        catch (JpaSystemException jpaSystemException) {
+            jpaSystemException.printStackTrace();
+        }
         return list;
     }
 
